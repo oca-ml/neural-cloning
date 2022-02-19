@@ -1,13 +1,12 @@
-"""Script used to train a neural network."""
+"""This script trains the cloner."""
 import dataclasses
 from typing import Optional, Sequence
 
-import hydra
 import matplotlib.pyplot as plt
 import numpy as np
-from hydra.core.config_store import ConfigStore
 
 import cartpole.nn as cp
+import cartpole.hydra_utils as hy
 
 
 @dataclasses.dataclass
@@ -22,6 +21,7 @@ class PlotConfig:
     reset: float = 0.1
 
 
+@hy.config
 @dataclasses.dataclass
 class MainConfig:
     """
@@ -35,10 +35,6 @@ class MainConfig:
     n_steps: int = 10_000
     middle: int = 4
     plot: PlotConfig = dataclasses.field(default_factory=PlotConfig)
-
-
-cs = ConfigStore.instance()
-cs.store(name="MainConfig", node=MainConfig)
 
 
 def smooth_loss(window: float, losses: Sequence[float]) -> np.ndarray:
@@ -61,7 +57,7 @@ def plot_training(result: cp.ResultTuple, ax: plt.Axes, config: PlotConfig) -> N
     ax.vlines(result.resets, ymin=ymax / (ymax / ymin) ** config.reset, ymax=ymax, colors="r")
 
 
-@hydra.main(config_path=None, config_name="MainConfig")
+@hy.main
 def main(config: MainConfig) -> None:
     result = cp.train(
         cloner=cp.NeuralCartCloner(middle=config.middle),
