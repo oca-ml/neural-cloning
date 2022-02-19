@@ -4,6 +4,7 @@
 *.hdf5
 *.npy
 *.npz
+outputs/
 
 # Image data
 *.gif
@@ -14,6 +15,9 @@
 
 # Jupyter notebooks
 *.ipynb
+
+# Pycharm
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

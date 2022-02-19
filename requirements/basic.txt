@@ -1,3 +1,7 @@
 gym
+hydra-core
 numpy
+matplotlib
 pandas
+pygame
+pynput
