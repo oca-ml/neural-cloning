@@ -1,18 +1,16 @@
 """For some scenarios with very simple configuration,
 hydra needs somewhat verbose code.
 
-We wrap this code into two functions.
+We wrap this code into two decorators.
 
 Use case:
 
-import dataclasses
-
+@hy.config
 @dataclasses.dataclass
 class ConnConfig:
     host: str = "some-website.com"
     port: int = 1234
 
-@hy.config(ConnConfig)
 
 @hy.main
 def connect(config: ConnConfig):
@@ -30,6 +28,7 @@ _MAIN_CONFIG: str = "MainConfig"
 
 def config(config_type):
     _CS.store(name=_MAIN_CONFIG, node=config_type)
+    return config_type
 
 
 def main(fn):

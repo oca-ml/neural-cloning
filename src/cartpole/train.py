@@ -1,4 +1,4 @@
-"""Script used to train a neural network."""
+"""This script trains the cloner."""
 import dataclasses
 from typing import Optional, Sequence
 
@@ -21,6 +21,7 @@ class PlotConfig:
     reset: float = 0.1
 
 
+@hy.config
 @dataclasses.dataclass
 class MainConfig:
     """
@@ -54,9 +55,6 @@ def plot_training(result: cp.ResultTuple, ax: plt.Axes, config: PlotConfig) -> N
 
     ymin, ymax = np.min(loss_smooth), np.max(loss_smooth)
     ax.vlines(result.resets, ymin=ymax / (ymax / ymin) ** config.reset, ymax=ymax, colors="r")
-
-
-hy.config(MainConfig)
 
 
 @hy.main

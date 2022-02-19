@@ -67,7 +67,7 @@ class NeuralCartCloner(nn.Module):
         return model
 
 
-def _net_input(state, action: int) -> torch.Tensor:
+def wrap_net_input(state, action: int) -> torch.Tensor:
     """Wraps the state (array/list/tuple with 4 components)
     and the action (0 or 1) into a tensor of shape (6,).
 
@@ -140,7 +140,7 @@ def train(
         # TODO(Pawel): Substitute for non-random policy.
         action = env.action_space.sample()
 
-        net_input = _net_input(state=observation, action=action).to(device)
+        net_input = wrap_net_input(state=observation, action=action).to(device)
 
         observation_predicted = cloner(net_input)
         observation, _reward, done, _info = env.step(action)

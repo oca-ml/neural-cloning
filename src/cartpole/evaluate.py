@@ -1,3 +1,7 @@
+"""This script loads the cloner from a given directory
+and for a series of random actions, evaluates the divergence
+between the cloner and the real environment.
+"""
 import dataclasses
 import logging
 
@@ -9,16 +13,14 @@ import cartpole.nn as cnn
 import cartpole.hydra_utils as hy
 
 
+LOGGER = logging.getLogger(__name__)
+
+
+@hy.config
 @dataclasses.dataclass
 class MainConfig:
     model_path: str
     steps: int = 100
-
-
-hy.config(MainConfig)
-
-
-LOGGER = logging.getLogger(__name__)
 
 
 @hy.main
@@ -48,7 +50,7 @@ def main(config: MainConfig) -> None:
     observation = observation_0
     obs_sim = [observation]
     for _i, action in zip(range(done_on), actions_to_take):
-        net_input = cnn._net_input(state=observation, action=action)
+        net_input = cnn.wrap_net_input(state=observation, action=action)
         observation_predicted = cloner(net_input)
         observation = observation_predicted.detach().numpy()
         obs_sim.append(observation)
