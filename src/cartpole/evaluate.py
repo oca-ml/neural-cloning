@@ -2,12 +2,11 @@ import dataclasses
 import logging
 
 import gym
-import hydra
 import matplotlib.pyplot as plt
 import numpy as np
-from hydra.core.config_store import ConfigStore
 
 import cartpole.nn as cnn
+import cartpole.hydra_utils as hy
 
 
 @dataclasses.dataclass
@@ -16,13 +15,13 @@ class MainConfig:
     steps: int = 100
 
 
-cs = ConfigStore.instance()
-cs.store(name="MainConfig", node=MainConfig)
+hy.config(MainConfig)
+
 
 LOGGER = logging.getLogger(__name__)
 
 
-@hydra.main(config_path=None, config_name="MainConfig")
+@hy.main
 def main(config: MainConfig) -> None:
     cloner = cnn.NeuralCartCloner.read_model(config.model_path)
 
