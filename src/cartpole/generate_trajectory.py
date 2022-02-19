@@ -105,5 +105,12 @@ def main(transition_function: TransitionFunction) -> None:
 
 
 if __name__ == "__main__":
-    transition_function = RealEnv(always_on=True)
+    # TODO(Pawel): Make this configurable.
+    # Uncomment to use "true" environment:
+    # transition_function = RealEnv(always_on=True)
+
+    # Read the cloner from a directory
+    model = cnn.NeuralCartCloner.read_model("outputs/2022-02-19/19-42-14")
+    transition_function = FakeEnv(model)
+
     main(transition_function)
