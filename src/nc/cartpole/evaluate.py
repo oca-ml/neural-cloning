@@ -9,8 +9,8 @@ import gym
 import matplotlib.pyplot as plt
 import numpy as np
 
-import cartpole.nn as cnn
-import cartpole.hydra_utils as hy
+import nc.cartpole.nn as cnn
+import nc.hydra_utils as hy
 
 
 LOGGER = logging.getLogger(__name__)

@@ -13,8 +13,8 @@ import gym.envs.classic_control.cartpole as cp
 import numpy as np
 from pynput import keyboard
 
-import cartpole.hydra_utils as hy
-import cartpole.nn as cnn
+import nc.hydra_utils as hy
+import nc.cartpole.nn as cnn
 
 
 class TransitionFunction(Protocol):
