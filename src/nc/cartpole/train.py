@@ -5,8 +5,8 @@ from typing import Optional, Sequence
 import matplotlib.pyplot as plt
 import numpy as np
 
-import cartpole.nn as cp
-import cartpole.hydra_utils as hy
+import nc.cartpole.nn as cp
+import nc.hydra_utils as hy
 
 
 @dataclasses.dataclass
